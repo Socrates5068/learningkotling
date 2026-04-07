@@ -1,15 +1,41 @@
+gitignore
+# Ide-specific files
+.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+.idea/modules.xml
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+.idea/caches/
+.idea/libraries/
+
+# Gradle files
+.gradle/
+build/
+/*/build/
+gradlew.bat
+
+# Local configuration
 local.properties
+
+# Log files
+*.log
+
+# Android Studio captures and exports
+captures/
+
+# Native build artifacts
+.externalNativeBuild/
+.cxx/
+
+# Kotlin-specific
+.kotlin/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Secrets (opcional, pero recomendado si usas API keys)
+# secrets.properties
+# google-services.json
