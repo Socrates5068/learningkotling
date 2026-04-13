@@ -37,6 +37,7 @@ fun AppNavigation() {
             when (currentScreen) {
                 0 -> MenuPrincipal(onSelectExercise = { id -> currentScreen = id })
                 1 -> InteractiveScreen(onBack = { currentScreen = 0 })
+                2 -> AppNavigationExcercise(onBack = { currentScreen = 0 })
                 // Aquí irás añadiendo más números para nuevos ejercicios
                 // 2 -> TuNuevoEjercicio(onBack = { currentScreen = 0 })
             }
@@ -69,12 +70,11 @@ fun MenuPrincipal(onSelectExercise: (Int) -> Unit) {
         }
 
         // Espacio para futuros botones
-        OutlinedButton(
-            onClick = { /* Próximamente */ },
+        Button(
+            onClick = { onSelectExercise(2) },
             modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
-            enabled = false
         ) {
-            Text("2. Próximo ejercicio...")
+            Text("2. Navigation Exercise...")
         }
     }
 }

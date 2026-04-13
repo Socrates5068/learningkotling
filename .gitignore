@@ -1,6 +1,7 @@
 gitignore
 # Ide-specific files
 .idea/
+*.idea/
 *.iml
 .idea/modules.xml
 .idea/workspace.xml
