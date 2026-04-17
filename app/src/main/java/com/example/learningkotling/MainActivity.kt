@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -30,7 +31,7 @@ class MainActivity : ComponentActivity() {
 fun AppNavigation() {
     // Estado para controlar qué ejercicio mostrar
     // 0 = Menú, 1 = Ejercicio Estado, etc.
-    var currentScreen by remember { mutableIntStateOf(0) }
+    var currentScreen by rememberSaveable { mutableIntStateOf(0) }
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
@@ -38,6 +39,7 @@ fun AppNavigation() {
                 0 -> MenuPrincipal(onSelectExercise = { id -> currentScreen = id })
                 1 -> InteractiveScreen(onBack = { currentScreen = 0 })
                 2 -> AppNavigationExcercise(onBack = { currentScreen = 0 })
+                3 -> PantallaContador(onBack = { currentScreen = 0 })
                 // Aquí irás añadiendo más números para nuevos ejercicios
                 // 2 -> TuNuevoEjercicio(onBack = { currentScreen = 0 })
             }
@@ -64,7 +66,9 @@ fun MenuPrincipal(onSelectExercise: (Int) -> Unit) {
         // Botón para el primer ejercicio
         Button(
             onClick = { onSelectExercise(1) },
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp)
         ) {
             Text("1. Estado en Compose (Carrito de compras)")
         }
@@ -72,9 +76,21 @@ fun MenuPrincipal(onSelectExercise: (Int) -> Unit) {
         // Espacio para futuros botones
         Button(
             onClick = { onSelectExercise(2) },
-            modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
         ) {
-            Text("2. Navigation Exercise...")
+            Text("2. Navigation Exercise")
+        }
+
+        // Espacio para futuros botones
+        Button(
+            onClick = { onSelectExercise(3) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+        ) {
+            Text("3. Counter Exercise")
         }
     }
 }
