@@ -41,6 +41,7 @@ fun AppNavigation() {
                 2 -> AppNavigationExcercise(onBack = { currentScreen = 0 })
                 3 -> PantallaContador(onBack = { currentScreen = 0 })
                 4 -> PantallaCarga(onBack = { currentScreen = 0 })
+                5 -> PantallaPermisos(onBack = { currentScreen = 0 })
                 // Aquí irás añadiendo más números para nuevos ejercicios
                 // 2 -> TuNuevoEjercicio(onBack = { currentScreen = 0 })
             }
@@ -102,6 +103,16 @@ fun MenuPrincipal(onSelectExercise: (Int) -> Unit) {
                 .padding(vertical = 8.dp),
         ) {
             Text("4. Coroutines Exercise")
+        }
+
+        // PantallaPermisos Exercise
+        Button(
+            onClick = { onSelectExercise(5) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+        ) {
+            Text("5. Pantalla Permisos Exercise")
         }
     }
 }
