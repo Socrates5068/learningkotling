@@ -1,6 +1,7 @@
 package com.example.learningkotling.data.local.dao
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -21,4 +22,8 @@ interface NotificationDao {
     // Función para limpiar la base de datos
     @Query("DELETE FROM notifications_table")
     suspend fun deleteAllNotifications()
+
+    // Borra un registro específico de la tabla
+    @Delete
+    suspend fun deleteNotification(notification: NotificationEntity)
 }

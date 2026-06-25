@@ -19,6 +19,7 @@ import com.example.learningkotling.ui.NotificationViewModel
 import com.example.learningkotling.ui.NotificationViewModelFactory
 import com.example.learningkotling.ui.screens.NotificationHistoryScreen
 import com.example.learningkotling.data.local.NotificationRepository
+import com.example.learningkotling.ui.screens.NotificationAccessScreen
 import com.example.learningkotling.ui.theme.LearningKotlingTheme
 
 class MainActivity : ComponentActivity() {
@@ -59,6 +60,10 @@ fun AppNavigation(viewModel: NotificationViewModel) {
                 6 -> PantallaNotificacion(onBack = { currentScreen = 0 })
                 7 -> NotificationHistoryScreen(
                     viewModel = viewModel,
+                    onBack = { currentScreen = 0 }
+                )
+                8 -> NotificationAccessScreen(
+                    onPermissionGranted = { currentScreen = 0 },
                     onBack = { currentScreen = 0 }
                 )
                 // Aquí irás añadiendo más números para nuevos ejercicios
@@ -151,6 +156,16 @@ fun MenuPrincipal(onSelectExercise: (Int) -> Unit) {
                 .padding(vertical = 8.dp),
         ) {
             Text("7. Historial de Notificaciones (Room)")
+        }
+
+        // notification permission
+        Button(
+            onClick = { onSelectExercise(8) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+        ) {
+            Text("8. Configurar Acceso a Notificaciones")
         }
     }
 }

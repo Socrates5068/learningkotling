@@ -19,4 +19,8 @@ class NotificationRepository(private val notificationDao: NotificationDao) {
     suspend fun deleteAll() {
         notificationDao.deleteAllNotifications()
     }
+
+    suspend fun delete(notification: NotificationEntity) {
+        notificationDao.deleteNotification(notification)
+    }
 }
