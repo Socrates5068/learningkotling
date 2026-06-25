@@ -43,7 +43,6 @@ kotlin {
 }
 
 dependencies {
-    val roomVersion = "2.8.4"
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
