@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -13,22 +14,35 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.learningkotling.data.local.database.AppDatabase
+import com.example.learningkotling.ui.NotificationViewModel
+import com.example.learningkotling.ui.NotificationViewModelFactory
+import com.example.learningkotling.ui.screens.NotificationHistoryScreen
+import com.example.learningkotling.data.local.NotificationRepository
 import com.example.learningkotling.ui.theme.LearningKotlingTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
+        // Inicializamos la base de datos y el DAO
+        val database by lazy { AppDatabase.getDatabase(this) }
+        val repository by lazy { NotificationRepository(database.notificationDao()) }
+        val viewModel: NotificationViewModel by viewModels {
+            NotificationViewModelFactory(repository)
+        }
+
         setContent {
             LearningKotlingTheme {
-                AppNavigation()
+                AppNavigation(viewModel)
             }
         }
     }
 }
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(viewModel: NotificationViewModel) {
     // Estado para controlar qué ejercicio mostrar
     // 0 = Menú, 1 = Ejercicio Estado, etc.
     var currentScreen by rememberSaveable { mutableIntStateOf(0) }
@@ -43,8 +57,11 @@ fun AppNavigation() {
                 4 -> PantallaCarga(onBack = { currentScreen = 0 })
                 5 -> PantallaPermisos(onBack = { currentScreen = 0 })
                 6 -> PantallaNotificacion(onBack = { currentScreen = 0 })
+                7 -> NotificationHistoryScreen(
+                    viewModel = viewModel,
+                    onBack = { currentScreen = 0 }
+                )
                 // Aquí irás añadiendo más números para nuevos ejercicios
-                // 2 -> TuNuevoEjercicio(onBack = { currentScreen = 0 })
             }
         }
     }
@@ -124,6 +141,16 @@ fun MenuPrincipal(onSelectExercise: (Int) -> Unit) {
                 .padding(vertical = 8.dp),
         ) {
             Text("6. Pantalla Permisos Exercise 2")
+        }
+
+        // Room Database Exercise
+        Button(
+            onClick = { onSelectExercise(7) },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+        ) {
+            Text("7. Historial de Notificaciones (Room)")
         }
     }
 }
